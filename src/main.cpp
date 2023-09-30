@@ -19,6 +19,8 @@ auto process(const std::size_t id, std::mutex &mtx) -> size_t {
   return id;
 }
 
+using namespace tming; 
+
 auto main() -> int {
   const int size = 20;
   std::mutex mtx;
