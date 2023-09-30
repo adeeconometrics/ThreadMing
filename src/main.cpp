@@ -1,4 +1,5 @@
 #include "../include/ThreadPool.hpp"
+#include "../include/Utils.hpp"
 
 #include <chrono>
 #include <cmath>
@@ -12,8 +13,8 @@ auto process(const std::size_t id, std::mutex &mtx) -> size_t {
   std::cout << "Starting: " << id << std::endl;
   lock.unlock();
 
-  const int seconds = int(std::rand() % 5);
-  std::this_thread::sleep_for(std::chrono::seconds(seconds));
+  const int seconds = int(std::rand() % 5); // make seeded
+  std::this_thread::sleep_for(std::chrono::seconds(seconds)); 
 
   return id;
 }
@@ -21,6 +22,8 @@ auto process(const std::size_t id, std::mutex &mtx) -> size_t {
 auto main() -> int {
   const int size = 20;
   std::mutex mtx;
+  // Timer t;
+
   ThreadPool<std::shared_future<std::size_t>> futures{
       std::thread::hardware_concurrency() - 1};
 
