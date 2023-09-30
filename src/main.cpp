@@ -3,19 +3,21 @@
 #include <thread>
 #include <iostream>
 
-auto main() -> int {
-    ThreadPool<std::size_t> q(10);
 
-    std::thread t1([&q]()-> void {
-        for(std::size_t i = 0; i < 10; i++){
+auto main() -> int {
+    const int size = 10;
+    ThreadPool<int> q{10};
+
+    std::thread t1([&]()-> void {
+        for(std::size_t i = 0; i <size; i++){
             q.push(i);
             std::cout << "element pushed: " << i << std::endl;
         }
     });
 
-    std::thread t2([&q]() -> void {
-      for (std::size_t i = 0; i < 10; i++) {
-        const unsigned long element = q.pop();
+    std::thread t2([&q, &size]() -> void {
+      for (int i = 0; i < size; i++) {
+        const int element = q.pop();
         std::cout << "element popped: " << element << std::endl;
       }
     });

@@ -4,7 +4,7 @@
 #include <thread>
 
 template <typename T>
-ThreadPool<T>::ThreadPool(const std::size_t t_size) : m_size(t_size) {}
+ThreadPool<T>::ThreadPool(std::size_t t_size) : m_size(t_size) {}
 
 template <typename T>
 ThreadPool<T>::ThreadPool(const ThreadPool<T> &) : m_size(2) {}
@@ -13,7 +13,7 @@ template <typename T> ThreadPool<T>::ThreadPool(ThreadPool<T> &&) : m_size(2) {}
 
 template <typename T> auto ThreadPool<T>::push(const T &t_item) -> void {
   std::unique_lock<std::mutex> lock(m_mutex);
-  m_cond, wait(lock, [this]() { return m_queue.size() < m_size; });
+  m_cond.wait(lock, [this]() { return m_queue.size() < m_size; });
 
   m_queue.push(t_item);
   lock.unlock();

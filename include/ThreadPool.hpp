@@ -8,7 +8,7 @@
 template <typename T>
 struct ThreadPool {
 public:
-    ThreadPool(const std::size_t t_size);
+    ThreadPool(std::size_t t_size);
     ThreadPool(const ThreadPool<T>&);
     ThreadPool(ThreadPool<T>&&);
 
