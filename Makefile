@@ -15,7 +15,7 @@ SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 BUILD_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_FILES))
 
 # Main target: specify the name of your final executable
-TARGET := my_program
+TARGET := threadpool
 
 # Rule to build object files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
@@ -25,7 +25,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 # Rule to build the final executable
 $(TARGET): $(BUILD_FILES)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $^ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $^
 
 # Clean up generated files
 clean:
